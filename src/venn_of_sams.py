@@ -66,7 +66,7 @@ def CompareTwoSAMs(sam_file1, sam_file2, distance_threshold, out_summary_prefix=
 	qnames_different_ref = [];
 	qnames_different_orient = [];
 
-	for qname in sam_hash1.keys():
+	for qname in list(sam_hash1.keys()):
 		num_processed += 1;
 		if ((num_processed % 1000) == 0):
 			sys.stderr.write('\rProcessed %d alignments...' % num_processed);
@@ -152,7 +152,7 @@ def CompareTwoSAMs(sam_file1, sam_file2, distance_threshold, out_summary_prefix=
 	sys.stderr.write('\n');
 	sys.stderr.write('Counting qnames present in sam_file2 that are missing from sam_file1...\n');
 	num_processed = 0;
-	for qname in sam_hash2.keys():
+	for qname in list(sam_hash2.keys()):
 		num_processed += 1;
 		if ((num_processed % 1000) == 0):
 			sys.stderr.write('\rProcessed %d alignments...' % num_processed);
@@ -205,7 +205,7 @@ def CompareTwoSAMs(sam_file1, sam_file2, distance_threshold, out_summary_prefix=
 	summary_line += 'Number of qnames not present in SAM file 2: %d\n' % (not_in_sam_file2);
 	summary_line += 'Number of qnames mapped to different references: %d\n' % (num_different_reference);
 	summary_line += 'Number of alignments of different orientation: %d\n' % (num_different_orientation);
-	summary_line += 'Number of shared qnames: %d\n' % (len(shared_qnames.keys()));
+	summary_line += 'Number of shared qnames: %d\n' % (len(list(shared_qnames.keys())));
 	summary_line += 'Mapped in SAM 1: %d\n' % (num_mapped_1);
 	summary_line += 'Unmapped in SAM 1: %d\n' % (num_not_mapped_1);
 	summary_line += 'Mapped in SAM 2: %d\n' % (num_mapped_2);

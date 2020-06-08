@@ -167,13 +167,13 @@ def convert_to_fasta(fastq_path, out_fasta_path):
 	try:
 		fp_in = open(fastq_path, 'r');
 	except IOError:
-		print 'ERROR: Could not open file "%s" for reading!' % fastq_path;
+		print('ERROR: Could not open file "%s" for reading!' % fastq_path);
 		return;
 	
 	try:
 		fp_out = open(out_fasta_path, 'w');
 	except IOError:
-		print 'ERROR: Could not open file "%s" for writing!' % out_fasta_path;
+		print('ERROR: Could not open file "%s" for writing!' % out_fasta_path);
 		fp_in.close();
 		return;
 	
@@ -201,7 +201,7 @@ def count_seq_length(fastq_path):
 	try:
 		fp_in = open(fastq_path, 'r');
 	except IOError:
-		print 'ERROR: Could not open file "%s" for reading!' % fastq_path;
+		print('ERROR: Could not open file "%s" for reading!' % fastq_path);
 		return;
 	
 	all_read_lengths = [];
@@ -256,7 +256,7 @@ def get_headers_and_lengths(fastq_path):
 	try:
 		fp_in = open(fastq_path, 'r');
 	except IOError:
-		print 'ERROR: Could not open file "%s" for reading!' % fastq_path;
+		print('ERROR: Could not open file "%s" for reading!' % fastq_path);
 		exit(1);
 	seq_id = 0;
 	while True:

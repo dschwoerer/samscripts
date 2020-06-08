@@ -228,13 +228,13 @@ def count_nonpass_variants(vcf_file, verbose=True):
 				continue;
 			try:
 				info_vals[split_value[0].lower()] = split_value[1].lower();
-			except Exception, e:
+			except Exception as e:
 				sys.stderr.write('value = "%s"\n' % value);
 				sys.stderr.write(str(e));
 				exit(1);
-		if ('vartype' in info_vals.keys()):
+		if ('vartype' in list(info_vals.keys())):
 			vartype = info_vals['vartype'];
-		elif ('type' in info_vals.keys()):
+		elif ('type' in list(info_vals.keys())):
 			vartype = info_vals['type'];
 		else:
 			# sys.stderr.write('ERROR: VCF line does not contain varType info! Counting it as a SNP.\n');

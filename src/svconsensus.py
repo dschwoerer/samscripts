@@ -149,13 +149,13 @@ def process_mpileup_line(line, line_number, ret_variant_list, ret_vcf_list, ret_
 	# event_coverage_threshold = 10;
 
 	# sorted_insertion_counts = sorted(insertion_event_counts.items(), key=operator.itemgetter(1));
-	for insertion_event in insertion_event_counts.keys():
+	for insertion_event in list(insertion_event_counts.keys()):
 		if (len(insertion_event) > event_length_threshold):
 			# print '';
 			# print '\n\tInsertion event length: %d, position: %d, len(opened_insertion_events): %d' % (len(insertion_event), int(position), len(ret_opened_insertion_events));
 			ret_opened_insertion_events.append([len(insertion_event), len(insertion_event)]);
 
-	for deletion_event in deletion_event_counts.keys():
+	for deletion_event in list(deletion_event_counts.keys()):
 		if (len(deletion_event) > event_length_threshold):
 			# print '\n\tDeletion event length: %d, position: %d, len(opened_deletion_events): %d' % (len(deletion_event), int(position), len(ret_opened_deletion_events));
 			ret_opened_deletion_events.append([len(deletion_event), len(deletion_event)]);
@@ -361,7 +361,7 @@ def process_mpileup(alignments_path, reference_path, mpileup_path, coverage_thre
 		while (i1 < len(opened_insertion_events)):
 			opened_insertion_events[i1][0] -= 1;
 			i1 += 1;
-		opened_insertion_events = filter(lambda a: a[0] > 0, opened_insertion_events);
+		opened_insertion_events = [a for a in opened_insertion_events if a[0] > 0];
 		# if (len(opened_insertion_events) > 0):
 		# 	print opened_insertion_events;
 		# 	print '';
@@ -370,7 +370,7 @@ def process_mpileup(alignments_path, reference_path, mpileup_path, coverage_thre
 		while (i1 < len(opened_deletion_events)):
 			opened_deletion_events[i1][0] -= 1;
 			i1 += 1;
-		opened_deletion_events = filter(lambda a: a[0] > 0, opened_deletion_events);
+		opened_deletion_events = [a for a in opened_deletion_events if a[0] > 0];
 
 
 

@@ -213,24 +213,24 @@ class SAMLine:
 		self.line_fields_ok = True;
 
 	def Verbose(self):
-		print 'qname = %s' % self.qname;
-		print 'flag = %s' % self.flag;
-		print 'rname = %s' % self.rname;
-		print 'pos = %s' % self.pos;
-		print 'mapq = %s' % self.mapq;
-		print 'cigar = %s' % self.cigar;
-		print 'mrnm = %s' % self.mrnm;
-		print 'mpos = %s' % self.mpos;
-		print 'isize = %s' % self.isize;
-		print 'seq = %s' % self.seq;
-		print 'qual = %s' % self.qual;
-		print '(evaluated = %d)' % self.evaluated;
-		print '(min_distance = %d)' % self.min_distance;
-		print '(is_correct_ref_and_orient = %d)' % self.is_correct_ref_and_orient;
-		print '(is_duplicate = %d)' % self.is_duplicate;
-		print '(is_filtered_out = %d)' % self.is_filtered_out;
-		print '(is_best_of_duplicates = %d)' % self.is_best_of_duplicates;
-		print '(clipped_pos = %d)' % self.clipped_pos;
+		print('qname = %s' % self.qname);
+		print('flag = %s' % self.flag);
+		print('rname = %s' % self.rname);
+		print('pos = %s' % self.pos);
+		print('mapq = %s' % self.mapq);
+		print('cigar = %s' % self.cigar);
+		print('mrnm = %s' % self.mrnm);
+		print('mpos = %s' % self.mpos);
+		print('isize = %s' % self.isize);
+		print('seq = %s' % self.seq);
+		print('qual = %s' % self.qual);
+		print('(evaluated = %d)' % self.evaluated);
+		print('(min_distance = %d)' % self.min_distance);
+		print('(is_correct_ref_and_orient = %d)' % self.is_correct_ref_and_orient);
+		print('(is_duplicate = %d)' % self.is_duplicate);
+		print('(is_filtered_out = %d)' % self.is_filtered_out);
+		print('(is_best_of_duplicates = %d)' % self.is_best_of_duplicates);
+		print('(clipped_pos = %d)' % self.clipped_pos);
 
 	def FormatAccuracy(self):
 		line = '';
@@ -393,9 +393,9 @@ class SAMLine:
 				refpos += opsize
 				extcigar += '%s%s' % (opsize, optype)
 			else:
-				print 'ERROR: Faulty basic CIGAR string operation!'
-				print 'operation: %s%s' % (opsize, optype)
-				print 'self.cigar'
+				print('ERROR: Faulty basic CIGAR string operation!')
+				print('operation: %s%s' % (opsize, optype))
+				print('self.cigar')
 
 		return extcigar
 
@@ -462,9 +462,9 @@ class SAMLine:
 				refpos += opsize
 				extcigar += '%s%s' % (opsize, optype)
 			else:
-				print 'ERROR: Faulty basic CIGAR string operation!'
-				print 'operation: %s%s' % (opsize, optype)
-				print 'self.cigar'
+				print('ERROR: Faulty basic CIGAR string operation!')
+				print('operation: %s%s' % (opsize, optype))
+				print('self.cigar')
 
 		return extcigar, GCcontent
 
@@ -597,7 +597,7 @@ class SAMLine:
 		start_event = -1;
 		end_event = -1;
 
-		for i in xrange(0, len(cigar_pos_list)):
+		for i in range(0, len(cigar_pos_list)):
 			[cigar_count, cigar_op, pos_on_reference, pos_on_read] = cigar_pos_list[i];
 			if (cigar_op in 'M=XI'):
 				if (pos_on_read == start_pos):
@@ -610,7 +610,7 @@ class SAMLine:
 		if (start_event == -1):
 			return [];
 
-		for i in xrange(start_event, len(cigar_pos_list)):
+		for i in range(start_event, len(cigar_pos_list)):
 			[cigar_count, cigar_op, pos_on_reference, pos_on_read] = cigar_pos_list[i];
 			if (cigar_op in 'M=XI'):
 				if (pos_on_read == end_pos):
@@ -653,7 +653,7 @@ class SAMLine:
 
 		# i = 0;
 		# while (i < len(cigar_list)):
-		for i in xrange(0, len(cigar_list)):
+		for i in range(0, len(cigar_list)):
 			cigar_count = cigar_list[i][0];
 			cigar_op = cigar_list[i][1];
 
@@ -667,7 +667,7 @@ class SAMLine:
 					pos_on_reference += cigar_count;
 					pos_on_read += cigar_count;
 				else:
-					for j in xrange(0, cigar_count):
+					for j in range(0, cigar_count):
 						cigar_pos_list.append([1, cigar_op, pos_on_reference + 0, pos_on_read + 0]);
 						pos_on_reference += 1;
 						pos_on_read += 1;
@@ -677,7 +677,7 @@ class SAMLine:
 					cigar_pos_list.append([cigar_count + 0, cigar_op + '', pos_on_reference + 0, pos_on_read + 0]);
 					pos_on_reference += cigar_count;
 				else:
-					for j in xrange(0, cigar_count):
+					for j in range(0, cigar_count):
 						cigar_pos_list.append([1, cigar_op, pos_on_reference + 0, pos_on_read + 0]);
 						pos_on_reference += 1;
 
@@ -686,7 +686,7 @@ class SAMLine:
 					cigar_pos_list.append([cigar_count + 0, cigar_op + '', pos_on_reference + 0, pos_on_read + 0]);
 					pos_on_read += cigar_count;
 				else:
-					for j in xrange(0, cigar_count):
+					for j in range(0, cigar_count):
 						cigar_pos_list.append([1, cigar_op, pos_on_reference + 0, pos_on_read + 0]);
 						pos_on_read += 1;
 
@@ -820,12 +820,12 @@ class SAMLine:
 				while (i < cigar_count):
 					try:
 						real_bases[pos_on_read + i - num_hardclipped_bases] = cigar_op;
-					except Exception, e:
+					except Exception as e:
 						sys.stderr.write(str(e) + '\n');
-						print cigar;
-						print seq_len, pos_on_read, num_hardclipped_bases, i, len(cigars);
+						print(cigar);
+						print(seq_len, pos_on_read, num_hardclipped_bases, i, len(cigars));
 						# print self.original_line;
-						print self.qname;
+						print(self.qname);
 						exit(1);
 					if (cigar_op == 'I'):
 						real_bases_insertions[pos_on_read + i - num_hardclipped_bases] = 1;
@@ -1022,7 +1022,7 @@ def getExtendedCIGAR(string1, string2, countMutations = True):
 	opsize = 1
 
 	# checking other characeters
-	for i in xrange(1, len(string1)):
+	for i in range(1, len(string1)):
 		if string1[i] == 'N' or string2[i] == 'N':
 			newoptype = skipped
 		elif string1[i] == string2[i]:
@@ -1138,7 +1138,7 @@ def HashSAMLines(sam_lines):
 
 		num_lines += 1;	# Count only unique sequences.
 
-	for key in ret.keys():
+	for key in list(ret.keys()):
 		ret[key].sort(reverse=True, key=lambda sam_line: sam_line.chosen_quality);
 		# ret[key].sort(reverse=True, key=lambda sam_line: ((sam_line.IsSecondary() == False), sam_line.chosen_quality));
 
@@ -1222,7 +1222,7 @@ def HashSAM(sam_path):
 
 	fp_reference.close();
 
-	for key in ret.keys():
+	for key in list(ret.keys()):
 		ret[key].sort(reverse=True, key=lambda sam_line: sam_line.chosen_quality);
 		# ret[key].sort(reverse=True, key=lambda sam_line: ((sam_line.IsSecondary() == False), sam_line.chosen_quality));
 
@@ -1288,7 +1288,7 @@ def HashSAMWithFilter(sam_path, qname_hash_to_filter={}):
 
 	fp_reference.close();
 
-	for key in ret.keys():
+	for key in list(ret.keys()):
 		ret[key].sort(reverse=True, key=lambda sam_line: sam_line.chosen_quality);
 
 	return [ret, num_references, num_unique_references];
@@ -1657,7 +1657,7 @@ def FindMultipleQnameEntries(sam_files):
 		fp_sam.close();
 
 	fp = open('test.multiple', 'w');
-	fp.write('\n'.join(duplicate_hash.keys()));
+	fp.write('\n'.join(list(duplicate_hash.keys())));
 	fp.close();
 
 	return duplicate_hash;
@@ -1714,19 +1714,19 @@ def CountMappedReads(sam_file):
 	fp.close();
 
 	num_unique_reads = 0;
-	for value in sam_reads.values():
+	for value in list(sam_reads.values()):
 		if (value == 1):
 			num_unique_reads += 1;
 	num_unique_mapped_reads = 0;
-	for value in sam_mapped_reads.values():
+	for value in list(sam_mapped_reads.values()):
 		if (value == 1):
 			num_unique_mapped_reads += 1;
 
-	for best_read in highest_scoring_alignment_for_read.values():
+	for best_read in list(highest_scoring_alignment_for_read.values()):
 		total_num_bases += len(sam_line.seq);
 		num_mapped_bases += best_read.CalcNumMappedBases();
 
-	num_mapped_reads = len(highest_scoring_alignment_for_read.keys());
+	num_mapped_reads = len(list(highest_scoring_alignment_for_read.keys()));
 
 	return [num_alignments, num_mapped_alignments, num_unique_reads, num_mapped_reads, num_mapped_bases];
 
@@ -1756,7 +1756,7 @@ def CompareBasePositions(query_sam, ref_sam, switch_ins_and_dels=False):
 	for cigpos in query_cigpos:
 		[cig_count, cig_op, pos_on_ref, pos_on_query] = cigpos;
 		if (cig_op in 'M=X'):
-			qsam_ref_coords[pos_on_query:(pos_on_query + cig_count)] = range(pos_on_ref, (pos_on_ref + cig_count));
+			qsam_ref_coords[pos_on_query:(pos_on_query + cig_count)] = list(range(pos_on_ref, (pos_on_ref + cig_count)));
 		elif (cig_op == 'I'):
 			qsam_ref_coords[pos_on_query:(pos_on_query + cig_count)] = [-1]*cig_count;
 		elif (cig_op == 'S'):
@@ -1769,7 +1769,7 @@ def CompareBasePositions(query_sam, ref_sam, switch_ins_and_dels=False):
 	for cigpos in ref_cigpos:
 		[cig_count, cig_op, pos_on_ref, pos_on_query] = cigpos;
 		if (cig_op in 'M=X'):
-			rsam_ref_coords[pos_on_query:(pos_on_query + cig_count)] = range(pos_on_ref, (pos_on_ref + cig_count));
+			rsam_ref_coords[pos_on_query:(pos_on_query + cig_count)] = list(range(pos_on_ref, (pos_on_ref + cig_count)));
 		elif ((switch_ins_and_dels == False and cig_op == 'I') or (switch_ins_and_dels == True and cig_op == 'D')):
 			rsam_ref_coords[pos_on_query:(pos_on_query + cig_count)] = [-1]*cig_count;
 		elif (cig_op == 'S'):
@@ -1809,7 +1809,7 @@ def CountCorrectlyMappedBases(hashed_sam_lines, hashed_reference_sam, out_summar
 
 
 	total_ref_bases = 0;
-	for qname in hashed_reference_sam.keys():
+	for qname in list(hashed_reference_sam.keys()):
 		ref_sam = hashed_reference_sam[qname][0];
 		# total_ref_bases += (ref_sam.CalcReadLengthFromCigar() - ref_sam.clip_count_front - ref_sam.clip_count_back);
 		num_ref_bases = len(ref_sam.seq);
@@ -1824,7 +1824,7 @@ def CountCorrectlyMappedBases(hashed_sam_lines, hashed_reference_sam, out_summar
 	sum_ref_bases = 0;
 
 	i = 0;
-	for qname in hashed_sam_lines.keys():
+	for qname in list(hashed_sam_lines.keys()):
 		i += 1;
 		if ((i % 1000) == 0):
 			sys.stderr.write('\rLine %d' % (i));

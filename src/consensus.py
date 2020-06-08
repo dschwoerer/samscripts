@@ -136,10 +136,10 @@ def process_mpileup_line(line, line_number, ret_variant_list, ret_vcf_list, ret_
 		ret_coverage_sum[0] += int(coverage);	# TODO: Should I count total coverage of this base, or the non_indel_coverage_current_base?
 		sorted_base_counts = [['A', 0], ['C', 0], ['T', 0], ['G', 0]];
 		
-		sorted_base_counts = sorted(base_counts.items(), key=operator.itemgetter(1));
+		sorted_base_counts = sorted(list(base_counts.items()), key=operator.itemgetter(1));
 		try:
 			most_common_base_count = sorted_base_counts[-1][1];
-		except Exception, e:
+		except Exception as e:
 			most_common_base_count = 0;
 			pass;
 		#variant_line = 'undercovered1\tpos = %s\tcoverage = %d\tnon_indel_cov_curr = %d\tmost_common_base_count = %d\tref_base = %s\tcons_base = %s\tbase_counts = %s\tinsertion_counts = %s\tdeletion_counts = %s\t%s' % (position, int(coverage), non_indel_coverage_current_base, most_common_base_count, ref_base, sorted_base_counts[-1][0], str(sorted_base_counts), str(insertion_event_counts), str(deletion_event_counts), line.strip());
@@ -162,10 +162,10 @@ def process_mpileup_line(line, line_number, ret_variant_list, ret_vcf_list, ret_
 		
 		most_common_base_count = 0;
 		### Handling base consensus.
-		sorted_base_counts = sorted(base_counts.items(), key=operator.itemgetter(1));
+		sorted_base_counts = sorted(list(base_counts.items()), key=operator.itemgetter(1));
 		try:
 			most_common_base_count = sorted_base_counts[-1][1];
-		except Exception, e:
+		except Exception as e:
 			pass;
 			# sys.stderr.write(str(e) + '\n');
 			# sys.stderr.write('sorted_base_counts:\n');
@@ -229,8 +229,8 @@ def process_mpileup_line(line, line_number, ret_variant_list, ret_vcf_list, ret_
 	if ((non_indel_coverage_next_base + deletion_count + insertion_count) > coverage_threshold):
 		# Sanity check, just to see if there actually were any insertions (to avoid index out of bounds error).
 		# If there are insertions, get the most common one.
-		if (len(insertion_event_counts.keys()) > 0):
-			sorted_insertion_counts = sorted(insertion_event_counts.items(), key=operator.itemgetter(1));
+		if (len(list(insertion_event_counts.keys())) > 0):
+			sorted_insertion_counts = sorted(list(insertion_event_counts.items()), key=operator.itemgetter(1));
 			most_common_insertion_count = sorted_insertion_counts[-1][1];
 			most_common_insertion_length = len(sorted_insertion_counts[-1][0]);
 			insertion_unique = True if (sum([int(insertion_count[1] == most_common_insertion_count) for insertion_count in sorted_insertion_counts]) == 1) else False;
@@ -241,8 +241,8 @@ def process_mpileup_line(line, line_number, ret_variant_list, ret_vcf_list, ret_
 		
 		# Sanity check, just to see if there actually were any deletions (to avoid index out of bounds error).
 		# If there are deletions, get the most common one.
-		if (len(deletion_event_counts.keys()) > 0):
-			sorted_deletion_counts = sorted(deletion_event_counts.items(), key=operator.itemgetter(1));
+		if (len(list(deletion_event_counts.keys())) > 0):
+			sorted_deletion_counts = sorted(list(deletion_event_counts.items()), key=operator.itemgetter(1));
 			most_common_deletion_count = sorted_deletion_counts[-1][1];
 			most_common_deletion_length = len(sorted_deletion_counts[-1][0]);
 			deletion_unique = True if (sum([int(deletion_count[1] == most_common_deletion_count) for deletion_count in sorted_deletion_counts]) == 1) else False;

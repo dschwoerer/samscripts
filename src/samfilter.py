@@ -448,7 +448,7 @@ def filter_uniqe_best(sam_file, out_filtered_sam_file, out_rejected_file=None):
 	num_rejected = 0;
 
 	i = 0;
-	for sam_lines in hashed_sam.values():
+	for sam_lines in list(hashed_sam.values()):
 		i += 1;
 		sys.stderr.write('\rLine %d, num_accepted: %d, num_rejected: %d' % (i, num_accepted, num_rejected));
 		sam_line = sam_lines[0];
@@ -493,7 +493,7 @@ def filter_uniqe_best_with_AS_0(sam_file, out_filtered_sam_file):
 
 	fp_out.write('\n'.join(sam_headers) + '\n');
 
-	for sam_lines in hashed_sam.values():
+	for sam_lines in list(hashed_sam.values()):
 		if (len(sam_lines) == 1):
 			sam_line = sam_lines[0];
 			fp_out.write(sam_line.original_line + '\n');
@@ -502,7 +502,7 @@ def filter_uniqe_best_with_AS_0(sam_file, out_filtered_sam_file):
 				sam_line = sam_lines[0];
 				fp_out.write(sam_line.original_line + '\n');
 
-	num_accepted = len(hashed_sam.keys());
+	num_accepted = len(list(hashed_sam.keys()));
 	num_rejected = num_sam_lines - num_accepted;
 
 	sys.stderr.write('num_accepted = %d (%.2f%%)\n' % (num_accepted, (float(num_accepted) / float(num_accepted + num_rejected)) * 100.0));
@@ -1212,9 +1212,9 @@ def sam_stats(sam_file, reads_fastq=''):
 	num_mapped = 0;
 	num_mapped_unique = 0;
 
-	num_qnames_in_sam_file = len(hashed_sam.keys());
+	num_qnames_in_sam_file = len(list(hashed_sam.keys()));
 
-	for sam_lines in hashed_sam.values():
+	for sam_lines in list(hashed_sam.values()):
 		for sam_line in sam_lines:
 			if (sam_line.IsMapped() == True):
 				num_mapped += 1;
@@ -1549,7 +1549,7 @@ def plot_alignments(ref_file, sam_file):
 				new_q = qseq[pos_on_read:(pos_on_read+cigar_count)];
 				rline += new_r;
 				qline += new_q;
-				for j in xrange(0, len(new_q)):
+				for j in range(0, len(new_q)):
 					if (new_q[j] != new_r[j]):
 						mline += 'X';
 					else:
@@ -1560,7 +1560,7 @@ def plot_alignments(ref_file, sam_file):
 		line_ref_end_coords = pos - 1;
 		line_query_start_coords = -1;
 		line_query_end_coords = -1;
-		for j in xrange(0, len(qline), wrap_len):
+		for j in range(0, len(qline), wrap_len):
 			end_pos = min(len(qline), (j + wrap_len));
 			part_opline = opline[j:end_pos];
 			part_rline = rline[j:end_pos];
@@ -1578,10 +1578,10 @@ def plot_alignments(ref_file, sam_file):
 			fp_out.write('%s\n' % (part_mline));
 			fp_out.write('%s\t%d - %d\n' % (part_qline, line_query_start_coords, line_query_end_coords));
 			fp_out.write('\n');
-			print '';
+			print('');
 
-		print '';
-		print '';
+		print('');
+		print('');
 
 
 
@@ -1685,7 +1685,7 @@ def sam_info(sam_file, reads_file=None):
 			summary_read_count += 'percent_mapped_reads: %.2f%%\n' % ((float(num_mapped_reads) / float(fastqinfo_num_seqs)) * 100.0);
 			summary_read_count += 'percent_mapped_bases: %.2f%%\n' % ((float(num_mapped_bases) / float(fastqinfo_total_seq_len)) * 100.0);
 		fp_out.write(summary_read_count + '\n');
-	except Exception, e:
+	except Exception as e:
 		sys.stderr.write(str(e) + '\n');
 
 

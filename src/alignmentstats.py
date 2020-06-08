@@ -24,7 +24,7 @@ try:
         matplotlib.use('Agg');
         import matplotlib.pyplot as plt;
         from matplotlib.font_manager import FontProperties;
-except Exception, e:
+except Exception as e:
         USE_MATPLOTLIB = False;
         sys.stderr.write('Exception when importing Matplotlib.\n');
         sys.stderr.write(str(e) + '\n');
@@ -44,20 +44,20 @@ MODE_CODE_COLLECT_READ_COUNTS = (1 << 7);
 MODE_CODE_HEADER = (1 << 8);
 
 def print_usage_and_exit():
-	print 'Usage:';
-	print '\t%s file|folder mode_code <sam_path> <reference_path> <reads_path> [consensus_coverage_threshold] [<simulated_sam_path>]' % sys.argv[0];
-	print '';
-	print '\tmode_code\t0 Run all analyses.';
-	print '\t\t\t1 Only collect the results';
-	print '\t\t\thcalc';
-	print '\t\t\tcalc';
-	print '\t\t\thcollect';
-	print '\t\t\tcollect';
-	print '\t\t\thcalccons';
-	print '\t\t\tcalccons';
-	print '\t\t\thcalcerrors';
-	print '\t\t\tcalcerrors';
-	print '\t\t\t';
+	print('Usage:');
+	print('\t%s file|folder mode_code <sam_path> <reference_path> <reads_path> [consensus_coverage_threshold] [<simulated_sam_path>]' % sys.argv[0]);
+	print('');
+	print('\tmode_code\t0 Run all analyses.');
+	print('\t\t\t1 Only collect the results');
+	print('\t\t\thcalc');
+	print('\t\t\tcalc');
+	print('\t\t\thcollect');
+	print('\t\t\tcollect');
+	print('\t\t\thcalccons');
+	print('\t\t\tcalccons');
+	print('\t\t\thcalcerrors');
+	print('\t\t\tcalcerrors');
+	print('\t\t\t');
 	exit(1);
 
 def run_from_args(cmd_args):
@@ -194,7 +194,7 @@ def ParseVariantStats(variant_summary_path):
 def analyze_single_sam(mode_code, sam_file, reference_file, reads_file, simulated_sam_path='', consensus_coverage_threshold=20):
 	
 	if (sam_file == '' or reference_file == ''):
-		print '[analyze_single_sam] ERROR: No input files given.';
+		print('[analyze_single_sam] ERROR: No input files given.');
 		print_usage_and_exit();
 		return;
 
@@ -340,7 +340,7 @@ def analyze_single_sam(mode_code, sam_file, reference_file, reads_file, simulate
 			summary += '[CIGAR statistics - individual indels]\n';
 			summary += summary_lines + '\n\n';
 
-		except Exception, e:
+		except Exception as e:
 			sys.stderr.write(str(e) + '\n');
 			sys.stderr.write('Returned values: %s\n' % (str(error_rates_return)));
 
@@ -361,7 +361,7 @@ def analyze_single_sam(mode_code, sam_file, reference_file, reads_file, simulate
 			sys.stderr.write(summary_lines + '\n');
 			summary += '[CIGAR statistics - indels as events]\n';
 			summary += summary_lines + '\n\n';
-		except Exception, e:
+		except Exception as e:
 			sys.stderr.write(str(e) + '\n');
 			sys.stderr.write('Returned values: %s\n' % (str(error_rates_return)));
 

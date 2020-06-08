@@ -18,7 +18,7 @@ try:
         matplotlib.use('Agg');
         import matplotlib.pyplot as plt;
         from matplotlib.font_manager import FontProperties;
-except Exception, e:
+except Exception as e:
         USE_MATPLOTLIB = False;
         sys.stderr.write('Exception when importing Matplotlib.\n');
         sys.stderr.write(str(e) + '\n');
@@ -142,7 +142,7 @@ def CountCigarOperations(references, sam_line, count_indels_as_events=False):
 					else:
 						aline += 'X';
 						mismatches += 1;
-				except Exception, e:
+				except Exception as e:
 					sys.stderr.write(str(e) + '\n');
 					sys.stderr.write('position_reference = %d, len(reference_sequence) = %d\n' % (position_reference, len(reference_sequence)));
 					sys.stderr.write('position_read = %d, len(read_sequence = %d\n' % (position_read, len(read_sequence)));
@@ -179,7 +179,7 @@ def CountCigarOperations(references, sam_line, count_indels_as_events=False):
 	if (VERBOSE_DEBUG == True):
 		if (error_rate > 0.50):
 			sys.stderr.write('len(seq_a) = %ld, len(aline) = %ld, len(acig) = %ld, len(seq_b) = %ld\n' % (len(seq_a), len(aline), len(acig), len(seq_b)));
-			for w in xrange(0, len(seq_a), 120):
+			for w in range(0, len(seq_a), 120):
 				w_end = min(w+120, len(seq_a));
 				sys.stderr.write('%s\n' % (seq_a[w:w_end]));
 				sys.stderr.write('%s\n' % (aline[w:w_end]));
@@ -229,7 +229,7 @@ def PlotErrorRates(error_rate_hist, insertion_hist, deletion_hist, snp_hist, mat
 	
 	
 	
-	xvalues = range(0, 101);
+	xvalues = list(range(0, 101));
 	ax1.plot(xvalues_insertion, y_insertion_hist, label='Insertion rate (I)', linewidth=2);
 	ax1.plot(xvalues_deletion, y_deletion_hist, label='Deletion rate (D)', linewidth=2);
 	ax1.plot(xvalues_snp, y_snp_hist, label='Mismatch rate (M)', linewidth=2);
@@ -470,7 +470,7 @@ def ProcessSAM(references, sam_path, accuracy_counts_path, count_indels_as_event
 			fp_accuracy_counts.write('\t'.join([('%.5f' % float(value)) for value in single_counts]) + '\t' + sam_line.qname + '\n');
 			if (VERBOSE_DEBUG == True):
 				if (float(single_counts[4]) > 0.50):
-					print 'Error rate: %.5f, qname: "%s"' % (single_counts[4], sam_line.qname);
+					print('Error rate: %.5f, qname: "%s"' % (single_counts[4], sam_line.qname));
 
 	sys.stderr.write('\n');
 	sys.stderr.flush();
